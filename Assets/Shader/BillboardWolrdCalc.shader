@@ -1,4 +1,4 @@
-﻿Shader "Unlit/billboardWolrdCalc"
+﻿Shader "Unlit/BillboardWolrdCalc"
 {
 	Properties
 	{
