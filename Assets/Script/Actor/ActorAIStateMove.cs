@@ -46,9 +46,6 @@ public class ActorAIStateMove : ActorAIState
 		if(timeStamp >= totalTime)
 		{
 			actor.Position = endPos;
-			// 移动结束，处理ai
-			actor.SetState(new ActorAIStateAttack());
-
 			return;
 		}
 		else

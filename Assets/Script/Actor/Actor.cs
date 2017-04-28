@@ -128,4 +128,22 @@ public class Actor
 
 		SetState(state);
 	}
+
+	public void MoveTo(Vector3 start, Vector3 end, float speed)
+	{
+		ActorAIStateMove state = new ActorAIStateMove();
+		state.startPos = start;
+		state.endPos = end;
+		state.moveSpeed = speed;
+
+		SetState(state);
+	}
+
+	public void Attack(float attackInterval)
+	{
+		ActorAIStateAttack state = new ActorAIStateAttack();
+		state.AttackInterval = attackInterval;
+
+		SetState(state);
+	}
 }

@@ -3,14 +3,15 @@ using System.Collections;
 
 public class ActorAIStateAttack : ActorAIState 
 {
-	private float timeStamp = 0;
+	public float AttackInterval {set; get;}
+
+	private float _attackTimer = 0;
 
 	public override void Init (Actor parent)
 	{
 		base.Init (parent);
 
-		timeStamp = 5.0f;
-			
+		_attackTimer = AttackInterval;
 		actor.PlaySkill("attack");
 	}
 
@@ -21,13 +22,15 @@ public class ActorAIStateAttack : ActorAIState
 
 	public override void Tick (float dt)
 	{
-		if(timeStamp < 0)
+		if(_attackTimer < 0)
 		{
-			actor.RandomMove();
+			actor.PlaySkill("attack");
+
+			_attackTimer = AttackInterval;
 		}
 		else
 		{
-			timeStamp -= dt;
+			_attackTimer -= dt;
 		}
 	}
 }

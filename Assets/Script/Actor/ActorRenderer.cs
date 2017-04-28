@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ActorRenderer 
 {
-	string actorName;
+	protected string actorName;
 	protected Actor actor;
 
 	virtual public void Init(string name, Actor parent)

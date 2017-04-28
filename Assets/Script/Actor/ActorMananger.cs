@@ -43,7 +43,19 @@ public class ActorMananger
 		}
 	}
 
-	public void GenerateActor()
+	public Actor CreateActor(Vector2 position)
+	{
+		Actor actor = new Actor();
+		actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite);
+		actorList.Add(actor);
+
+		actor.Position = new Vector3(position.x, ActorMananger.ACTOR_Y, position.y);
+
+		return actor;
+	}
+
+	// 测试同屏压力的接口
+	public void GenerateTestActor()
 	{
 		for(int i = 0; i < 400; ++i)
 		{

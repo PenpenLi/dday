@@ -10,7 +10,7 @@ public class ActorRendererSkin : ActorRenderer
 	{
 		base.Init (name, parent);
 
-		GameObject prefab = ActorMananger.Instance().GetPrefab(name);
+		GameObject prefab = ActorMananger.Instance().GetPrefab(actorName);
 
 		instance = GameObject.Instantiate(prefab);
 		animator = instance.GetComponentInChildren<Animator>();

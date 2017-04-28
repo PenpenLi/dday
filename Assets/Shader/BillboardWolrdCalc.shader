@@ -26,7 +26,6 @@
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
-				float3 color : TEXCOORD1;
 				float4 vertex : SV_POSITION;
 			};
 
@@ -43,15 +42,13 @@
 				o.vertex = mul(UNITY_MATRIX_VP, float4(v.vertex.xyz, 1.0));
 
 				o.uv = v.uv;
-				o.color = right;
+
 
 				return o;
 			}
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				return fixed4(i.color, 1.0);
-
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
 				return col;

@@ -11,9 +11,9 @@ public class ActorRendererSprite : ActorRenderer
 	const float PI_85 = Mathf.PI * 5 / 8;
 	const float PI_87 = Mathf.PI * 7 / 8;
 
-	public override void Init (string actorName, Actor parent)
+	public override void Init (string name, Actor parent)
 	{
-		base.Init (actorName, parent);
+		base.Init (name, parent);
 
 		GameObject prefab = ActorMananger.Instance().GetPrefab(actorName);
 
