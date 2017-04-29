@@ -108,7 +108,7 @@ public class Battle
 				unit.IsAttacker = true;
 
 				unit.Attack = Random.Rand(3, 10);
-				unit.AttackSpeed = 30;
+				unit.AttackSpeed = 60;
 				unit.MoveSpeed = 1 / 30.0f;
 
 				attakerList.Add(unit);

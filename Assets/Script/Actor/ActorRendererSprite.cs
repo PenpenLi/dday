@@ -46,7 +46,7 @@ public class ActorRendererSprite : ActorRenderer
 		instance.transform.position = position;
 	}
 
-	public override void PlaySkill (string skillName)
+	public override void PlaySkill (string skillName, bool playOnce)
 	{
 		string suffix = "";
 
@@ -92,7 +92,8 @@ public class ActorRendererSprite : ActorRenderer
 		}
 
 		skillName = skillName + suffix;
-		animator.Play(skillName);
+
+		animator.Play(skillName, -1, playOnce ? 0 : float.NegativeInfinity);
 	}
 
 	public override void SetRotation (float rotation)

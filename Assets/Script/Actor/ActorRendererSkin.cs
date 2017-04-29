@@ -39,9 +39,9 @@ public class ActorRendererSkin : ActorRenderer
 		instance.transform.position = position;
 	}
 
-	public override void PlaySkill (string skillName)
+	public override void PlaySkill (string skillName, bool playOnce)
 	{
-		animator.Play(skillName);
+		animator.Play(skillName, -1, playOnce ? 0 : float.NegativeInfinity);
 	}
 
 	public override void SetRotation (float rotation)

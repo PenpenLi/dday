@@ -27,7 +27,7 @@ public class ActorRenderer
 		
 	}
 
-	virtual public void PlaySkill(string skillName)
+	virtual public void PlaySkill(string skillName, bool playOnce)
 	{
 		
 	}

@@ -12,7 +12,7 @@ public class ActorAIStateAttack : ActorAIState
 		base.Init (parent);
 
 		_attackTimer = AttackInterval;
-		actor.PlaySkill("attack");
+		actor.PlaySkill("attack", true);
 	}
 
 	public override void Destroy ()
@@ -24,7 +24,7 @@ public class ActorAIStateAttack : ActorAIState
 	{
 		if(_attackTimer < 0)
 		{
-			actor.PlaySkill("attack");
+			actor.PlaySkill("attack", true);
 
 			_attackTimer = AttackInterval;
 		}

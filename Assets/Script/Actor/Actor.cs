@@ -61,11 +61,11 @@ public class Actor
 		state.Init(this);
 	}
 
-	public void PlaySkill(string skillName)
+	public void PlaySkill(string skillName, bool playOnce = false)
 	{
 		if(renderer != null)
 		{
-			renderer.PlaySkill(skillName);
+			renderer.PlaySkill(skillName, playOnce);
 		}
 	}
 

@@ -89,7 +89,7 @@ public class Battleplayer
 	public void Attack(Unit attacker, Unit target)
 	{
 		Actor actor1 = unitActorMap[attacker];
-		Actor actor2 = unitActorMap[target];
+		//Actor actor2 = unitActorMap[target];
 
 		actor1.Attack(attacker.AttackSpeed * TIME_PER_FRAME);
 	}
