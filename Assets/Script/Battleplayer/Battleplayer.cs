@@ -71,7 +71,7 @@ public class Battleplayer
 	// 与表现层适配接口
 	public void Move(Unit unit, Vector2 startpos, Vector2 endpos)
 	{
-		Debug.Log("start " + startpos.ToString() + " end " + endpos.ToString());
+		//Debug.Log("start " + startpos.ToString() + " end " + endpos.ToString());
 
 		Actor actor = unitActorMap[unit];
 
