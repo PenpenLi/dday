@@ -4,6 +4,7 @@ using System.Collections;
 public class ActorAIStateAttack : ActorAIState 
 {
 	public float AttackInterval {set; get;}
+	public Vector3 Position { set; get;}
 
 	private float _attackTimer = 0;
 
@@ -12,6 +13,7 @@ public class ActorAIStateAttack : ActorAIState
 		base.Init (parent);
 
 		_attackTimer = AttackInterval;
+		actor.Position = Position;
 		actor.PlaySkill("attack", true);
 	}
 

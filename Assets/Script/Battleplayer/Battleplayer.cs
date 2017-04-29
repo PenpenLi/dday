@@ -91,6 +91,6 @@ public class Battleplayer
 		Actor actor1 = unitActorMap[attacker];
 		//Actor actor2 = unitActorMap[target];
 
-		actor1.Attack(attacker.AttackSpeed * TIME_PER_FRAME);
+		actor1.Attack(new Vector3(attacker.Position.x, ActorMananger.ACTOR_Y, attacker.Position.y), attacker.AttackSpeed * TIME_PER_FRAME);
 	}
 }

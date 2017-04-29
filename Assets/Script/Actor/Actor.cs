@@ -148,10 +148,11 @@ public class Actor
 		SetState(state);
 	}
 
-	public void Attack(float attackInterval)
+	public void Attack(Vector3 position, float attackInterval)
 	{
 		ActorAIStateAttack state = new ActorAIStateAttack();
 		state.AttackInterval = attackInterval;
+		state.Position = position;
 
 		SetState(state);
 	}

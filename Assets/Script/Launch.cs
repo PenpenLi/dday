@@ -9,8 +9,16 @@ public class Launch : MonoBehaviour {
 
 	public static Battleplayer battleplayer;
 
+	void Awake()
+	{
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 300;
+
+	}
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 
 		terrainRenderer = new GridRenderer();
 
