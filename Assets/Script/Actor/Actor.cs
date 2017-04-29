@@ -116,7 +116,7 @@ public class Actor
 
 	public void RandomMove()
 	{
-		ActorAIStateMove state = new ActorAIStateMove();
+		ActorAIStateMove2Position state = new ActorAIStateMove2Position();
 		state.startPos = Position;
 
 		int xendpos = Random.Rand(1, 20);
@@ -129,12 +129,21 @@ public class Actor
 		SetState(state);
 	}
 
-	public void MoveTo(Vector3 start, Vector3 end, float speed)
+	public void Move2Position(Vector3 start, Vector3 end, float speed)
 	{
-		ActorAIStateMove state = new ActorAIStateMove();
+		ActorAIStateMove2Position state = new ActorAIStateMove2Position();
 		state.startPos = start;
 		state.endPos = end;
 		state.moveSpeed = speed;
+
+		SetState(state);
+	}
+
+	public void Move2Target(Actor target, float speed)
+	{
+		ActorAIStateMove2Target state = new ActorAIStateMove2Target();
+		state.moveSpeed = speed;
+		state.target = target;
 
 		SetState(state);
 	}

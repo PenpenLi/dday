@@ -3,6 +3,8 @@ using System.Collections;
 
 public class UnitAIAttackState : UnitAIState 
 {
+	public Vector2 position;
+
 	private int attackFrameCounter = 0;
 
 	public override void Init (Battle b, Unit u)

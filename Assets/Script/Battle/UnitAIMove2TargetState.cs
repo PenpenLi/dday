@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UnitAIMoveState : UnitAIState 
+public class UnitAIMove2TargetState : UnitAIState 
 {
-	public Vector2 startPos;
-	public Vector2 endPos;
-	public int startFrame;
-
+	private int _lastFrame = 0;
 	private Vector2 _dir;
 
 	public override void Init (Battle b, Unit u)
 	{
 		base.Init (b, u);
 
-		_dir = (endPos - startPos).normalized;
+		_lastFrame = b.Frame;
 
-		Launch.battleplayer.Move(unit, startPos, endPos);
+		Launch.battleplayer.Move2Target(unit, unit.Target);
 	}
 
 	public override void Destroy ()
@@ -25,19 +22,26 @@ public class UnitAIMoveState : UnitAIState
 
 	public override void Tick ()
 	{
+		// 向目标移动
+		// 1. 目标死亡的处理
+		// 2. 进入自己射程的处理
+
 		if(_checkCanAttack())
 		{
-			unit.Position = endPos;
-
 			UnitAIAttackState state = new UnitAIAttackState();
+			state.position = unit.Position;
 
 			unit.State = state;
 		}
 		else
 		{
-			int frame = battle.Frame - startFrame;
+			int frame = battle.Frame - _lastFrame;
 
-			unit.Position = startPos + _dir * frame * unit.MoveSpeed;
+			_dir = (unit.Target.Position - unit.Position).normalized;
+
+			unit.Position = unit.Position + _dir * frame * unit.MoveSpeed;
+
+			_lastFrame = battle.Frame;
 		}
 	}
 

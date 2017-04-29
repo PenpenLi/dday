@@ -32,11 +32,14 @@ public class UnitAIIdleState : UnitAIState
 		List<Unit>.Enumerator enumerator = unitList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{
-			float distance = (enumerator.Current.Position - unit.Position).sqrMagnitude;
-			if(distance > maxDistance)
+			if(enumerator.Current.IsAlive)
 			{
-				maxDistance = distance;
-				unit.Target = enumerator.Current;
+				float distance = (enumerator.Current.Position - unit.Position).sqrMagnitude;
+				if(distance > maxDistance)
+				{
+					maxDistance = distance;
+					unit.Target = enumerator.Current;
+				}	
 			}
 		}
 
@@ -52,12 +55,7 @@ public class UnitAIIdleState : UnitAIState
 		if(unit.Target != null)
 		{
 			// 找到目标, move state
-			UnitAIMoveState state = new UnitAIMoveState();
-
-			state.startPos = unit.Position;
-			state.endPos = unit.Target.Position;
-			state.startFrame = battle.Frame;
-
+			UnitAIMove2TargetState state = new UnitAIMove2TargetState();
 			unit.State = state;
 		}
 	}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorAIStateMove : ActorAIState 
+public class ActorAIStateMove2Position : ActorAIState 
 {
 	public Vector3 startPos { set; get; }
 	public Vector3 endPos { set; get; }

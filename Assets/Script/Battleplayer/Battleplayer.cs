@@ -8,8 +8,8 @@ public class Battleplayer
 	float _timeStamp = 0;
 	int _lastFrame = 0;
 
-	const int FRAME_RATE = 30;
-	const float TIME_PER_FRAME = 1.0f / FRAME_RATE;
+	public static int FRAME_RATE = 30;
+	public static float TIME_PER_FRAME = 1.0f / FRAME_RATE;
 
 	// 数据与对应表现数据的映射关系
 	Dictionary<Unit, Actor> unitActorMap = new Dictionary<Unit, Actor>();
@@ -69,13 +69,21 @@ public class Battleplayer
 	}
 
 	// 与表现层适配接口
-	public void Move(Unit unit, Vector2 startpos, Vector2 endpos)
+	public void Move2Position(Unit unit, Vector2 startpos, Vector2 endpos)
 	{
 		//Debug.Log("start " + startpos.ToString() + " end " + endpos.ToString());
 
 		Actor actor = unitActorMap[unit];
 
-		actor.MoveTo(new Vector3(startpos.x, ActorMananger.ACTOR_Y, startpos.y), new Vector3(endpos.x, ActorMananger.ACTOR_Y, endpos.y), unit.MoveSpeed * FRAME_RATE);
+		actor.Move2Position(new Vector3(startpos.x, ActorMananger.ACTOR_Y, startpos.y), new Vector3(endpos.x, ActorMananger.ACTOR_Y, endpos.y), unit.MoveSpeed * FRAME_RATE);
+	}
+
+	public void Move2Target(Unit unit, Unit target)
+	{
+		Actor actor1 = unitActorMap[unit];
+		Actor actor2 = unitActorMap[target];
+
+		actor1.Move2Target(actor2, unit.MoveSpeed * FRAME_RATE);
 	}
 
 	public void Attack(Unit attacker, Unit target)
