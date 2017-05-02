@@ -148,13 +148,18 @@ public class Actor
 		SetState(state);
 	}
 
-	public void Attack(Vector3 position, float attackInterval)
+	public void Attack(Vector3 position, Actor target, int damage, bool isDead)
 	{
 		ActorAIStateAttack state = new ActorAIStateAttack();
-		state.AttackInterval = attackInterval;
+		//state.AttackInterval = attackInterval;
 		state.Position = position;
 
 		SetState(state);
+
+		if(isDead)
+		{
+			target.Dead();
+		}
 	}
 
 	public void Dead()

@@ -13,10 +13,6 @@ public class UnitAIAttackState : UnitAIState
 
 		attackFrameCounter = unit.AttackSpeed;
 
-
-		Launch.battleplayer.Attack(unit, unit.Target);
-
-
 		_doAttack();
 	}
 
@@ -51,13 +47,21 @@ public class UnitAIAttackState : UnitAIState
 
 	private void _doAttack()
 	{
+		int damage = 0;
 		if(_checkTargetAlive())
 		{
+			int old = unit.Target.HP;
+
 			int tmp = (unit.Target.HP - unit.Attack);
 			unit.Target.HP = tmp > 0 ? tmp : 0;
+
+			damage = old - unit.Target.HP;
 		}
 
-		if(!_checkTargetAlive())
+		Unit target = unit.Target;
+
+		bool isDead = !_checkTargetAlive();
+		if(isDead)
 		{
 			// target dead state
 			UnitAIDeadState stateDead = new UnitAIDeadState();
@@ -68,6 +72,8 @@ public class UnitAIAttackState : UnitAIState
 			unit.State = state;
 
 		}
+
+		Launch.battleplayer.Attack(unit, target, damage, isDead);
 	}
 
 	private bool _checkTargetAlive()

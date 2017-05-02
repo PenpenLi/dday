@@ -87,19 +87,12 @@ public class Battleplayer
 		actor1.Move2Target(actor2, unit.MoveSpeed * FRAME_RATE);
 	}
 
-	public void Attack(Unit attacker, Unit target)
+	public void Attack(Unit attacker, Unit target, int damage, bool isDead)
 	{
 		Actor actor1 = unitActorMap[attacker];
-		//Actor actor2 = unitActorMap[target];
+		Actor actor2 = unitActorMap[target];
 
-		actor1.Attack(new Vector3(attacker.Position.x, ActorMananger.ACTOR_Y, attacker.Position.y), attacker.AttackSpeed * TIME_PER_FRAME);
-	}
-
-	public void Dead(Unit unit)
-	{
-		Actor actor = unitActorMap[unit];
-
-		actor.Dead();
+		actor1.Attack(new Vector3(attacker.Position.x, ActorMananger.ACTOR_Y, attacker.Position.y), actor2, damage, isDead);
 	}
 
 	public void Idle(Unit unit)

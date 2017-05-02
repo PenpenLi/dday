@@ -7,8 +7,6 @@ public class UnitAIDeadState : UnitAIState
 	public override void Init (Battle b, Unit u)
 	{
 		base.Init (b, u);
-
-		Launch.battleplayer.Dead(u);
 	}
 
 	public override void Destroy ()
