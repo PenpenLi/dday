@@ -9,7 +9,7 @@ public class Unit
 	{
 		battle = b;
 
-		State = new UnitAIIdleState();
+		State = null;
 	}
 
 	int _hp;
@@ -164,7 +164,11 @@ public class Unit
 			}
 
 			_state = value;
-			_state.Init(battle, this);
+
+			if(_state != null)
+			{
+				_state.Init(battle, this);	
+			}
 		}
 	}
 

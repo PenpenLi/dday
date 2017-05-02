@@ -9,6 +9,8 @@ public class UnitAIIdleState : UnitAIState
 		base.Init (b, u);
 
 		u.Target = null;
+
+		Launch.battleplayer.Idle(u);
 	}
 
 	public override void Destroy ()

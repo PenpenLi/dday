@@ -59,7 +59,7 @@ public class Battle
 
 	public void Init()
 	{
-		InitTroopUnit();
+		_initTroopUnit();
 
 		Frame = 0;
 		IsStart = true;
@@ -89,8 +89,23 @@ public class Battle
 		
 	}
 
+	public void InitState()
+	{
+		List<Unit>.Enumerator enumerator = attakerList.GetEnumerator();
+		while(enumerator.MoveNext())
+		{
+			enumerator.Current.State = new UnitAIIdleState();
+		}
+
+		enumerator = defenderList.GetEnumerator();
+		while(enumerator.MoveNext())
+		{
+			enumerator.Current.State = new UnitAIIdleState();
+		}
+	}
+
 	// 
-	private void InitTroopUnit()
+	private void _initTroopUnit()
 	{
 		// attacker 
 		for(int troop = 0; troop < 5; ++troop)

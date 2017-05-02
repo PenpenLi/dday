@@ -163,4 +163,11 @@ public class Actor
 
 		SetState(state);
 	}
+
+	public void Idle()
+	{
+		ActorAIStateIdle state = new ActorAIStateIdle();
+
+		SetState(state);
+	}
 }

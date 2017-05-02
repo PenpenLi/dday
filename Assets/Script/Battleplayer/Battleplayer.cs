@@ -36,6 +36,7 @@ public class Battleplayer
 			unitActorMap.Add(enumerator.Current, actor);
 		}
 
+		_battle.InitState();
 	}
 
 	public void Destroy()
@@ -99,5 +100,12 @@ public class Battleplayer
 		Actor actor = unitActorMap[unit];
 
 		actor.Dead();
+	}
+
+	public void Idle(Unit unit)
+	{
+		Actor actor = unitActorMap[unit];
+
+		actor.Idle();
 	}
 }
