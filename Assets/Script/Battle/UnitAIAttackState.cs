@@ -27,6 +27,15 @@ public class UnitAIAttackState : UnitAIState
 
 	public override void Tick ()
 	{
+		if(!_checkTargetAlive())
+		{
+			UnitAIIdleState state = new UnitAIIdleState();
+
+			unit.State = state;
+
+			return;
+		}
+
 		if(attackFrameCounter > 0)
 		{
 			--attackFrameCounter;
@@ -42,19 +51,27 @@ public class UnitAIAttackState : UnitAIState
 
 	private void _doAttack()
 	{
-		if(unit.Target.IsAlive)
+		if(_checkTargetAlive())
 		{
 			int tmp = (unit.Target.HP - unit.Attack);
 			unit.Target.HP = tmp > 0 ? tmp : 0;
 		}
 
-		if(!unit.Target.IsAlive)
+		if(!_checkTargetAlive())
 		{
-			//unit.Target = null;
+			// target dead state
+			UnitAIDeadState stateDead = new UnitAIDeadState();
+			unit.Target.State = stateDead;
+			unit.Target = null;
 
-			//UnitAIIdleState state = new UnitAIIdleState();
+			UnitAIIdleState state = new UnitAIIdleState();
+			unit.State = state;
 
-			//unit.State = state;
 		}
+	}
+
+	private bool _checkTargetAlive()
+	{
+		return unit.Target != null && unit.Target.IsAlive;	
 	}
 }

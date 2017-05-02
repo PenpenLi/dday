@@ -93,4 +93,11 @@ public class Battleplayer
 
 		actor1.Attack(new Vector3(attacker.Position.x, ActorMananger.ACTOR_Y, attacker.Position.y), attacker.AttackSpeed * TIME_PER_FRAME);
 	}
+
+	public void Dead(Unit unit)
+	{
+		Actor actor = unitActorMap[unit];
+
+		actor.Dead();
+	}
 }

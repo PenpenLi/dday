@@ -156,4 +156,11 @@ public class Actor
 
 		SetState(state);
 	}
+
+	public void Dead()
+	{
+		ActorAIStateDead state = new ActorAIStateDead();
+
+		SetState(state);
+	}
 }

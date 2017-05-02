@@ -7,6 +7,8 @@ public class UnitAIIdleState : UnitAIState
 	public override void Init (Battle b, Unit u)
 	{
 		base.Init (b, u);
+
+		u.Target = null;
 	}
 
 	public override void Destroy ()

@@ -67,6 +67,8 @@ public class Battle
 
 	public void Tick()
 	{
+		// 行动顺序的问题，现在是进攻方优先
+		// 这样同一帧，如果防守方本来要攻击，但是已经死亡了，这一帧就没法攻击了
 		List<Unit>.Enumerator enumerator = attakerList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{

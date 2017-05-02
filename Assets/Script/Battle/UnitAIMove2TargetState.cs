@@ -26,6 +26,15 @@ public class UnitAIMove2TargetState : UnitAIState
 		// 1. 目标死亡的处理
 		// 2. 进入自己射程的处理
 
+		if(!_checkTargetAlive())
+		{
+			UnitAIIdleState state = new UnitAIIdleState();
+
+			unit.State = state;
+
+			return;
+		}
+
 		if(_checkCanAttack())
 		{
 			UnitAIAttackState state = new UnitAIAttackState();
@@ -43,6 +52,11 @@ public class UnitAIMove2TargetState : UnitAIState
 
 			_lastFrame = battle.Frame;
 		}
+	}
+
+	private bool _checkTargetAlive()
+	{
+		return unit.Target != null && unit.Target.IsAlive;	
 	}
 
 	private bool _checkCanAttack()
