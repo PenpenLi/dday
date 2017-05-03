@@ -131,7 +131,7 @@ public class Battle
 
 				unit.Attack = Random.Rand(3, 10);
 				unit.AttackSpeed = 60;
-				unit.MoveSpeed = 1 / 30.0f;
+				unit.MoveSpeed = 2 / 30.0f;
 
 				unit.ID = _getUnitID(troop, unitIndex);
 
@@ -159,7 +159,7 @@ public class Battle
 
 				unit.Attack = Random.Rand(3, 10);
 				unit.AttackSpeed = 30;
-				unit.MoveSpeed = 1 / 30.0f;
+				unit.MoveSpeed = 2 / 30.0f;
 
 				unit.ID = _getUnitID(troop + 5, unitIndex);
 

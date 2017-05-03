@@ -70,7 +70,7 @@ public class Actor
 
 	private void _onHitCallback(ActorCallbackData attackCallback)
 	{
-		Debug.Log(ID +  " On hit call back in actor " + " attackCallback " + attackCallback.Target.ID + " is dead " + attackCallback.IsDead);
+		//Debug.Log(ID +  " On hit call back in actor " + " attackCallback " + attackCallback.Target.ID + " is dead " + attackCallback.IsDead);
 
 		if(attackCallback != null && attackCallback.Caster != null && attackCallback.Target != null)
 		{
@@ -197,7 +197,7 @@ public class Actor
 		}
 
 
-		Debug.Log("Attack   " + this.ID + " attack " + target.ID + " damage " + damage + " is dead " + isDead);
+		//Debug.Log("Attack   " + this.ID + " attack " + target.ID + " damage " + damage + " is dead " + isDead);
 
 		attackCallback = new ActorCallbackData();
 		attackCallback.Caster = this;
