@@ -12,6 +12,22 @@ public class Unit
 		State = null;
 	}
 
+	int _id;
+	public int ID
+	{
+		get
+		{
+			return _id;
+		}
+		set
+		{
+			if(_id != value)
+			{
+				_id = value;
+			}
+		}
+	}
+
 	int _hp;
 	public int HP 
 	{

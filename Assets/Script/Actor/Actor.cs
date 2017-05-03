@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Actor 
 {
@@ -12,8 +13,14 @@ public class Actor
 	ActorRenderer renderer;
 	ActorAIState state;
 
-	public void Init(string resName, ActorType type)
+	public int ID { set; get; }
+
+	private Queue<ActorCallbackData> _attackCallbackList = new Queue<ActorCallbackData>();
+
+	public void Init(string resName, ActorType type, int id)
 	{
+		ID = id;
+
 		if(type == ActorType.Sprite)
 		{
 			renderer =  new ActorRendererSprite();	
@@ -53,7 +60,28 @@ public class Actor
 
 	public void OnHitCallBack()
 	{
-		Debug.Log("On hit call back in actor");
+		if(_attackCallbackList.Count > 0)
+		{
+			ActorCallbackData attackCallback = _attackCallbackList.Dequeue();
+
+			_onHitCallback(attackCallback);	
+		}
+	}
+
+	private void _onHitCallback(ActorCallbackData attackCallback)
+	{
+		Debug.Log(ID +  " On hit call back in actor " + " attackCallback " + attackCallback.Target.ID + " is dead " + attackCallback.IsDead);
+
+		if(attackCallback != null && attackCallback.Caster != null && attackCallback.Target != null)
+		{
+			if(attackCallback.IsDead)
+			{
+				attackCallback.Target.Dead();	
+			}
+
+			attackCallback.Destroy();
+			attackCallback = null;
+		}
 	}
 
 	public void SetState(ActorAIState newState)
@@ -158,16 +186,32 @@ public class Actor
 
 	public void Attack(Vector3 position, Actor target, int damage, bool isDead)
 	{
+		ActorCallbackData attackCallback = null;
+		while(_attackCallbackList.Count > 0)
+		{
+			attackCallback = _attackCallbackList.Dequeue();
+
+			_onHitCallback(attackCallback);
+
+			attackCallback = null;
+		}
+
+
+		Debug.Log("Attack   " + this.ID + " attack " + target.ID + " damage " + damage + " is dead " + isDead);
+
+		attackCallback = new ActorCallbackData();
+		attackCallback.Caster = this;
+		attackCallback.Target = target;
+		attackCallback.Damage = damage;
+		attackCallback.IsDead = isDead;
+		attackCallback.Init();
+		_attackCallbackList.Enqueue(attackCallback);
+
 		ActorAIStateAttack state = new ActorAIStateAttack();
-		//state.AttackInterval = attackInterval;
+
 		state.Position = position;
 
 		SetState(state);
-
-		if(isDead)
-		{
-			target.Dead();
-		}
 	}
 
 	public void Dead()

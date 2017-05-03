@@ -25,14 +25,14 @@ public class Battleplayer
 		List<Unit>.Enumerator enumerator = _battle.attakerList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{
-			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position);
+			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position, enumerator.Current.ID);
 			unitActorMap.Add(enumerator.Current, actor);
 		}
 
 		enumerator = _battle.defenderList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{
-			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position);
+			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position, enumerator.Current.ID);
 			unitActorMap.Add(enumerator.Current, actor);
 		}
 
@@ -97,6 +97,8 @@ public class Battleplayer
 
 	public void Idle(Unit unit)
 	{
+		Debug.Log("Idle   " + unit.ID);
+
 		Actor actor = unitActorMap[unit];
 
 		actor.Idle();

@@ -19,6 +19,7 @@ public class ActorAIStateAttack : ActorAIState
 
 	public override void Destroy ()
 	{
+		actor.OnHitCallBack();
 		base.Destroy ();
 	}
 

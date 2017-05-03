@@ -104,6 +104,11 @@ public class Battle
 		}
 	}
 
+	private int _getUnitID(int troop, int unitIndex)
+	{
+		return troop * 10 + unitIndex;
+	}
+
 	// 
 	private void _initTroopUnit()
 	{
@@ -127,6 +132,8 @@ public class Battle
 				unit.Attack = Random.Rand(3, 10);
 				unit.AttackSpeed = 60;
 				unit.MoveSpeed = 1 / 30.0f;
+
+				unit.ID = _getUnitID(troop, unitIndex);
 
 				attakerList.Add(unit);
 			}
@@ -153,6 +160,8 @@ public class Battle
 				unit.Attack = Random.Rand(3, 10);
 				unit.AttackSpeed = 30;
 				unit.MoveSpeed = 1 / 30.0f;
+
+				unit.ID = _getUnitID(troop + 5, unitIndex);
 
 				defenderList.Add(unit);
 			}

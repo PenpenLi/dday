@@ -61,6 +61,11 @@ public class UnitAIAttackState : UnitAIState
 		Unit target = unit.Target;
 
 		bool isDead = !_checkTargetAlive();
+
+		// 表现层接口
+		Launch.battleplayer.Attack(unit, target, damage, isDead);
+
+		// 如果目标死亡的AI
 		if(isDead)
 		{
 			// target dead state
@@ -72,8 +77,6 @@ public class UnitAIAttackState : UnitAIState
 			unit.State = state;
 
 		}
-
-		Launch.battleplayer.Attack(unit, target, damage, isDead);
 	}
 
 	private bool _checkTargetAlive()

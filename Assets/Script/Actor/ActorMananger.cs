@@ -45,10 +45,10 @@ public class ActorMananger
 		}
 	}
 
-	public Actor CreateActor(Vector2 position)
+	public Actor CreateActor(Vector2 position, int id)
 	{
 		Actor actor = new Actor();
-		actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite);
+		actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite, id);
 		actorList.Add(actor);
 
 		actor.Position = new Vector3(position.x, ActorMananger.ACTOR_Y, position.y);
@@ -78,7 +78,7 @@ public class ActorMananger
 		for(int i = 0; i < 400; ++i)
 		{
 			Actor actor = new Actor();
-			actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite);
+			actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite, i);
 			actorList.Add(actor);
 
 			int xpos = Random.Rand(0, 20);
@@ -92,7 +92,7 @@ public class ActorMananger
 		for(int i = 0; i < 10; ++i)
 		{
 			Actor actor = new Actor();
-			actor.Init("Actor/Skin/Gun/Gun_z", Actor.ActorType.Skin);
+			actor.Init("Actor/Skin/Gun/Gun_z", Actor.ActorType.Skin, i);
 			actorList.Add(actor);
 
 			int xpos = Random.Rand(1, 20);
