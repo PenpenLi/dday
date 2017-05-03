@@ -3,37 +3,42 @@ using System.Collections;
 
 public class ActorAIStateAttack : ActorAIState 
 {
-	//public float AttackInterval {set; get;}
 	public Vector3 Position { set; get;}
 
-	//private float _attackTimer = 0;
+	public ActorCallbackData callbackData = null;
 
 	public override void Init (Actor parent)
 	{
 		base.Init (parent);
 
-		//_attackTimer = AttackInterval;
 		actor.Position = Position;
 		actor.PlaySkill("attack", true);
 	}
 
 	public override void Destroy ()
 	{
-		actor.OnHitCallBack();
+		// 有的时候状态被打断，不会触发回调，这里强制处理一下
+		OnHitCallback();
+
 		base.Destroy ();
+	}
+
+	public override void OnHitCallback()
+	{
+		if(callbackData != null && callbackData.Caster != null && callbackData.Target != null)
+		{
+			if(callbackData.IsDead)
+			{
+				callbackData.Target.Dead();	
+			}
+
+			callbackData.Destroy();
+			callbackData = null;
+		}
 	}
 
 	public override void Tick (float dt)
 	{
-//		if(_attackTimer < 0)
-//		{
-//			actor.PlaySkill("attack", true);
-//
-//			_attackTimer = AttackInterval;
-//		}
-//		else
-//		{
-//			_attackTimer -= dt;
-//		}
+		
 	}
 }

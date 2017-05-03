@@ -15,8 +15,6 @@ public class Actor
 
 	public int ID { set; get; }
 
-	private Queue<ActorCallbackData> _attackCallbackList = new Queue<ActorCallbackData>();
-
 	public void Init(string resName, ActorType type, int id)
 	{
 		ID = id;
@@ -60,27 +58,9 @@ public class Actor
 
 	public void OnHitCallBack()
 	{
-		if(_attackCallbackList.Count > 0)
+		if(state != null)
 		{
-			ActorCallbackData attackCallback = _attackCallbackList.Dequeue();
-
-			_onHitCallback(attackCallback);	
-		}
-	}
-
-	private void _onHitCallback(ActorCallbackData attackCallback)
-	{
-		//Debug.Log(ID +  " On hit call back in actor " + " attackCallback " + attackCallback.Target.ID + " is dead " + attackCallback.IsDead);
-
-		if(attackCallback != null && attackCallback.Caster != null && attackCallback.Target != null)
-		{
-			if(attackCallback.IsDead)
-			{
-				attackCallback.Target.Dead();	
-			}
-
-			attackCallback.Destroy();
-			attackCallback = null;
+			state.OnHitCallback();
 		}
 	}
 
@@ -186,29 +166,15 @@ public class Actor
 
 	public void Attack(Vector3 position, Actor target, int damage, bool isDead)
 	{
-		ActorCallbackData attackCallback = null;
-		while(_attackCallbackList.Count > 0)
-		{
-			attackCallback = _attackCallbackList.Dequeue();
-
-			_onHitCallback(attackCallback);
-
-			attackCallback = null;
-		}
-
-
-		//Debug.Log("Attack   " + this.ID + " attack " + target.ID + " damage " + damage + " is dead " + isDead);
-
-		attackCallback = new ActorCallbackData();
+		ActorCallbackData attackCallback = new ActorCallbackData();
 		attackCallback.Caster = this;
 		attackCallback.Target = target;
 		attackCallback.Damage = damage;
 		attackCallback.IsDead = isDead;
 		attackCallback.Init();
-		_attackCallbackList.Enqueue(attackCallback);
 
 		ActorAIStateAttack state = new ActorAIStateAttack();
-
+		state.callbackData = attackCallback;
 		state.Position = position;
 
 		SetState(state);
