@@ -10,7 +10,7 @@ public class UnitAIIdleState : UnitAIState
 
 		u.Target = null;
 
-		Launch.battleplayer.Idle(u);
+		Launch.battleplayer.Idle(battle.Frame, u);
 	}
 
 	public override void Destroy ()

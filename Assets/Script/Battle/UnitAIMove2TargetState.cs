@@ -12,7 +12,7 @@ public class UnitAIMove2TargetState : UnitAIState
 
 		_lastFrame = b.Frame;
 
-		Launch.battleplayer.Move2Target(unit, unit.Target);
+		Launch.battleplayer.Move2Target(battle.Frame, unit, unit.Target);
 	}
 
 	public override void Destroy ()

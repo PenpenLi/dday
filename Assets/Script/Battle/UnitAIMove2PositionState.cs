@@ -15,7 +15,7 @@ public class UnitAIMove2PositionState : UnitAIState
 
 		_dir = (endPos - startPos).normalized;
 
-		Launch.battleplayer.Move2Position(unit, startPos, endPos);
+		Launch.battleplayer.Move2Position(battle.Frame, unit, startPos, endPos);
 	}
 
 	public override void Destroy ()

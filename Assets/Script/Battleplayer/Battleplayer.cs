@@ -12,7 +12,9 @@ public class Battleplayer
 	public static float TIME_PER_FRAME = 1.0f / FRAME_RATE;
 
 	// 数据与对应表现数据的映射关系
-	Dictionary<Unit, Actor> unitActorMap = new Dictionary<Unit, Actor>();
+	public Dictionary<int, Actor> unitActorMap = new Dictionary<int, Actor>();
+
+	Queue<BattleCommandBase> _commandQueue = new Queue<BattleCommandBase>();
 
 	public void Init()
 	{
@@ -26,14 +28,14 @@ public class Battleplayer
 		while(enumerator.MoveNext())
 		{
 			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position, enumerator.Current.ID);
-			unitActorMap.Add(enumerator.Current, actor);
+			unitActorMap.Add(enumerator.Current.ID, actor);
 		}
 
 		enumerator = _battle.defenderList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{
 			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position, enumerator.Current.ID);
-			unitActorMap.Add(enumerator.Current, actor);
+			unitActorMap.Add(enumerator.Current.ID, actor);
 		}
 
 		_battle.InitState();
@@ -65,42 +67,81 @@ public class Battleplayer
 				--elapsedFrame;
 			}
 
+			// 指令按时间顺序排好序了
+			while(_commandQueue.Count > 0)
+			{
+				BattleCommandBase command = _commandQueue.Peek();
+
+				if(command.Frame <= nowFrame)
+				{
+					command.Handle();
+
+					_commandQueue.Dequeue();
+				}
+				else
+				{
+					// 这一帧需要处理的都处理完了
+					break;
+				}
+			}
+
+
+
 			_lastFrame = nowFrame;
 		}
 	}
 
 	// 与表现层适配接口
-	public void Move2Position(Unit unit, Vector2 startpos, Vector2 endpos)
+	public void Move2Position(int frame, Unit unit, Vector2 startpos, Vector2 endpos)
 	{
-		//Debug.Log("start " + startpos.ToString() + " end " + endpos.ToString());
+		BattleCommandMove2Position command = new BattleCommandMove2Position();
 
-		Actor actor = unitActorMap[unit];
+		command.battleplayer = this;
+		command.Caster = unit.ID;
+		command.StartPosition = startpos;
+		command.EndPosition = endpos;
+		command.MoveSpeed = unit.MoveSpeed * FRAME_RATE;
+		command.Frame = frame;
 
-		actor.Move2Position(new Vector3(startpos.x, ActorMananger.ACTOR_Y, startpos.y), new Vector3(endpos.x, ActorMananger.ACTOR_Y, endpos.y), unit.MoveSpeed * FRAME_RATE);
+		_commandQueue.Enqueue(command);
 	}
 
-	public void Move2Target(Unit unit, Unit target)
+	public void Move2Target(int frame, Unit unit, Unit target)
 	{
-		Actor actor1 = unitActorMap[unit];
-		Actor actor2 = unitActorMap[target];
+		BattleCommandMove2Target command = new BattleCommandMove2Target();
+		command.battleplayer = this;
 
-		actor1.Move2Target(actor2, unit.MoveSpeed * FRAME_RATE);
+		command.Caster = unit.ID;
+		command.Target = target.ID;
+		command.MoveSpeed = unit.MoveSpeed * FRAME_RATE;
+		command.Frame = frame;
+
+		_commandQueue.Enqueue(command);
 	}
 
-	public void Attack(Unit attacker, Unit target, int damage, bool isDead)
+	public void Attack(int frame, Unit attacker, Unit target, int damage, bool isDead)
 	{
-		Actor actor1 = unitActorMap[attacker];
-		Actor actor2 = unitActorMap[target];
+		BattleCommandAttack command = new BattleCommandAttack();
+		command.battleplayer = this;
 
-		actor1.Attack(new Vector3(attacker.Position.x, ActorMananger.ACTOR_Y, attacker.Position.y), actor2, damage, isDead);
+		command.Caster = attacker.ID;
+		command.Target = target.ID;
+		command.Damage = damage;
+		command.IsDead = isDead;
+		command.Frame = frame;
+		command.Position = attacker.Position;
+
+		_commandQueue.Enqueue(command);
 	}
 
-	public void Idle(Unit unit)
+	public void Idle(int frame, Unit unit)
 	{
-		Debug.Log("Idle   " + unit.ID);
 
-		Actor actor = unitActorMap[unit];
+		BattleCommandIdle command = new BattleCommandIdle();
+		command.battleplayer = this;
+		command.Caster = unit.ID;
+		command.Frame = frame;
 
-		actor.Idle();
+		_commandQueue.Enqueue(command);
 	}
 }
