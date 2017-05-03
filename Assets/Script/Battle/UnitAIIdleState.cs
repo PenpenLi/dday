@@ -31,7 +31,7 @@ public class UnitAIIdleState : UnitAIState
 		}
 
 		// 找距离最近的
-		float maxDistance = 0;
+		float minDistance = float.MaxValue;
 
 		List<Unit>.Enumerator enumerator = unitList.GetEnumerator();
 		while(enumerator.MoveNext())
@@ -39,9 +39,9 @@ public class UnitAIIdleState : UnitAIState
 			if(enumerator.Current.IsAlive)
 			{
 				float distance = (enumerator.Current.Position - unit.Position).sqrMagnitude;
-				if(distance > maxDistance)
+				if(distance < minDistance)
 				{
-					maxDistance = distance;
+					minDistance = distance;
 					unit.Target = enumerator.Current;
 				}	
 			}

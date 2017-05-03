@@ -4,7 +4,6 @@ using System.Collections;
 public class ActorRendererSkin : ActorRenderer 
 {
 	GameObject instance;
-	Animator animator;
 
 	public override void Init (string name, Actor parent)
 	{

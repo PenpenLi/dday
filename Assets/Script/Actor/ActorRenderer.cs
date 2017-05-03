@@ -5,11 +5,22 @@ public class ActorRenderer
 {
 	protected string actorName;
 	protected Actor actor;
+	protected Animator animator;
 
 	virtual public void Init(string name, Actor parent)
 	{
 		actorName = name;
 		actor = parent;
+	}
+
+	public void AfterInit()
+	{
+		ActorMananger.Instance().RegisterMonoBehaviour(animator.gameObject, actor);
+	}
+
+	public void BeforeDestroy()
+	{
+		ActorMananger.Instance().UnRgisterMonoBehaviour(animator.gameObject, actor);
 	}
 
 	virtual public void Destroy()

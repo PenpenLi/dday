@@ -121,7 +121,7 @@ public class Battle
 
 				unit.HP = 100;
 
-				unit.AttackRange = 1;
+				unit.AttackRange = 10;
 				unit.IsAttacker = true;
 
 				unit.Attack = Random.Rand(3, 10);
@@ -147,7 +147,7 @@ public class Battle
 
 				unit.HP = 100;
 
-				unit.AttackRange = 1;
+				unit.AttackRange = 10;
 				unit.IsAttacker = false;
 
 				unit.Attack = Random.Rand(3, 10);

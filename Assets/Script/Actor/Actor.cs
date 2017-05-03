@@ -24,12 +24,15 @@ public class Actor
 		}
 
 		renderer.Init(resName, this);
+		renderer.AfterInit();
 	}
 
 	public void Destroy()
 	{
 		if(renderer != null)
 		{
+			renderer.BeforeDestroy();
+
 			renderer.Destroy();
 			renderer = null;
 		}
@@ -46,6 +49,11 @@ public class Actor
 		{
 			renderer.Tick(dt);
 		}
+	}
+
+	public void OnHitCallBack()
+	{
+		Debug.Log("On hit call back in actor");
 	}
 
 	public void SetState(ActorAIState newState)

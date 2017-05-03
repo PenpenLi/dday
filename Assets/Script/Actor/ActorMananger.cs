@@ -12,6 +12,8 @@ public class ActorMananger
 
 	Dictionary<string, GameObject> prefabList = new Dictionary<string, GameObject>();
 
+	Dictionary<GameObject, Actor> monoBehaviourMap = new Dictionary<GameObject, Actor>();
+
 	public GameObject GetPrefab(string name)
 	{
 		if(!prefabList.ContainsKey(name))
@@ -52,6 +54,22 @@ public class ActorMananger
 		actor.Position = new Vector3(position.x, ActorMananger.ACTOR_Y, position.y);
 
 		return actor;
+	}
+
+	// 由于动作才用统一的回调处理，所以需要一个mono和actor的映射关系
+	public void RegisterMonoBehaviour(GameObject obj, Actor actor)
+	{
+		monoBehaviourMap[obj] = actor;
+	}
+
+	public void UnRgisterMonoBehaviour(GameObject obj, Actor actor)
+	{
+		monoBehaviourMap.Remove(obj);
+	}
+
+	public Actor GetActorMonoBehaviour(GameObject obj)
+	{
+		return monoBehaviourMap[obj];
 	}
 
 	// 测试同屏压力的接口
