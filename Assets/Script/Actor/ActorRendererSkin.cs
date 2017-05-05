@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ActorRendererSkin : ActorRenderer 
 {
-	GameObject instance;
-
 	public override void Init (string name, Actor parent)
 	{
 		base.Init (name, parent);

@@ -6,6 +6,7 @@ public class ActorRenderer
 	protected string actorName;
 	protected Actor actor;
 	protected Animator animator;
+	public GameObject instance;
 
 	virtual public void Init(string name, Actor parent)
 	{

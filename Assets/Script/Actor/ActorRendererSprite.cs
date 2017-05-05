@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ActorRendererSprite : ActorRenderer 
 {
-	GameObject instance;
-
 	const float PI_81 = Mathf.PI / 8;
 	const float PI_83 = Mathf.PI * 3 / 8;
 	const float PI_85 = Mathf.PI * 5 / 8;

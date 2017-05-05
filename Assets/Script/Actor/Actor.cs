@@ -13,6 +13,8 @@ public class Actor
 	ActorRenderer renderer;
 	ActorAIState state;
 
+	public List<AttackEffectBase> attackEffectList = new List<AttackEffectBase>();
+
 	public int ID { set; get; }
 
 	public void Init(string resName, ActorType type, int id)
@@ -43,6 +45,14 @@ public class Actor
 		}
 	}
 
+	public void AddChild(GameObject obj)
+	{
+		if(obj != null && renderer != null && renderer.instance != null)
+		{
+			obj.transform.SetParent(renderer.instance.transform, false);
+		}	
+	}
+
 	public void Tick(float dt)
 	{
 		if(state != null)
@@ -54,13 +64,26 @@ public class Actor
 		{
 			renderer.Tick(dt);
 		}
+
+		// 攻击效果的tick，效果结束要删除
+		for(int i = attackEffectList.Count-1;i >= 0 ; i--)
+		{
+			AttackEffectBase attackEffect = attackEffectList[i];
+
+			if(attackEffect.Tick(dt))
+			{
+				attackEffect.Destroy();
+				// delete
+				attackEffectList.RemoveAt(i);
+			}
+		}
 	}
 
-	public void OnHitCallBack()
+	public void OnHitCallBack(string attName)
 	{
 		if(state != null)
 		{
-			state.OnHitCallback();
+			state.OnHitCallback(attName);
 		}
 	}
 

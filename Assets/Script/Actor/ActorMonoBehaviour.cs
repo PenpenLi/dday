@@ -13,10 +13,10 @@ public class ActorMonoBehaviour : MonoBehaviour {
 	
 	}
 
-	public void OnHitCallback()
+	public void OnHitCallback(string attname)
 	{
 		Actor actor =  ActorMananger.Instance().GetActorMonoBehaviour(gameObject);
 
-		actor.OnHitCallBack();
+		actor.OnHitCallBack(attname);
 	}
 }

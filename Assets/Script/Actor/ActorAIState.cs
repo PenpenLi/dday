@@ -21,7 +21,7 @@ public class ActorAIState
 
 	}
 
-	public virtual void OnHitCallback()
+	public virtual void OnHitCallback(string attName)
 	{
 
 	}
