@@ -70,7 +70,7 @@ public class UnitAIAttackState : UnitAIState
 		attackEffect.Caster = unit;
 		attackEffect.Target = unit.Target;
 		attackEffect.IsFly = true;
-		attackEffect.Speed = 10;
+		attackEffect.Speed = 20;
 
 		_effectList.Add(attackEffect);
 
