@@ -53,6 +53,18 @@ public class Actor
 		}	
 	}
 
+	public GameObject GetGameObject()
+	{
+		if(renderer != null)
+		{
+			return renderer.instance;
+		}	
+		else
+		{
+			return null;
+		}
+	}
+
 	public void Tick(float dt)
 	{
 		if(state != null)

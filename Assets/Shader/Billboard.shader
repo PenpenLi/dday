@@ -45,9 +45,9 @@
 // ----------
 
 
-				float3 lookat = _WorldSpaceCameraPos - input.vertex.xyz;
-				float3 right = cross((0, 1, 0), lookat);
-				float3 up = cross(lookat, right);
+//				float3 lookat = _WorldSpaceCameraPos - input.vertex.xyz;
+//				float3 right = cross((0, 1, 0), lookat);
+//				float3 up = cross(lookat, right);
 
 				output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
 

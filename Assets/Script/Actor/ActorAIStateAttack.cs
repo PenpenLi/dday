@@ -58,7 +58,7 @@ public class ActorAIStateAttack : ActorAIState
 
 				callbackData.Target.attackEffectList.Add(hitEffect);
 			}
-			else if(attName.Length == 2)
+			else if(attNames.Length == 2)
 			{
 				// 飞行击中
 				AttackEffectStraightLine attackEffect = new AttackEffectStraightLine();
