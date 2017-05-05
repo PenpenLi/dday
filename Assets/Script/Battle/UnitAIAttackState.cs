@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitAIAttackState : UnitAIState 
 {
 	public Vector2 position;
 
 	private int attackFrameCounter = 0;
+
+	//攻击前摇的帧数
+	private int forwardFrame = 3;
+
+	List<UnitAttackEffect> _effectList = new List<UnitAttackEffect>();
 
 	public override void Init (Battle b, Unit u)
 	{
@@ -23,6 +29,18 @@ public class UnitAIAttackState : UnitAIState
 
 	public override void Tick ()
 	{
+		for(int i = _effectList.Count-1;i >= 0 ; i--)
+		{
+			UnitAttackEffect attackEffect = _effectList[i];
+
+			if(attackEffect.Tick())
+			{
+				// delete
+				_effectList.RemoveAt(i);
+			}
+		}
+
+		// 少一个距离的判断，如果打的过程中，目标走了
 		if(!_checkTargetAlive())
 		{
 			UnitAIIdleState state = new UnitAIIdleState();
@@ -47,36 +65,18 @@ public class UnitAIAttackState : UnitAIState
 
 	private void _doAttack()
 	{
-		int damage = 0;
-		if(_checkTargetAlive())
-		{
-			int old = unit.Target.HP;
+		UnitAttackEffect attackEffect = new UnitAttackEffect();
+		attackEffect.ForwardFrame = forwardFrame;
+		attackEffect.Caster = unit;
+		attackEffect.Target = unit.Target;
+		attackEffect.IsFly = true;
+		attackEffect.Speed = 10;
 
-			int tmp = (unit.Target.HP - unit.Attack);
-			unit.Target.HP = tmp > 0 ? tmp : 0;
+		_effectList.Add(attackEffect);
 
-			damage = old - unit.Target.HP;
-		}
-
-		Unit target = unit.Target;
-
-		bool isDead = !_checkTargetAlive();
-
+		Debug.Log("frame " + battle.Frame + " id " + unit.ID + " attack ");
 		// 表现层接口
-		Launch.battleplayer.Attack(battle.Frame, unit, target, damage, isDead);
-
-		// 如果目标死亡的AI
-		if(isDead)
-		{
-			// target dead state
-			UnitAIDeadState stateDead = new UnitAIDeadState();
-			unit.Target.State = stateDead;
-			unit.Target = null;
-
-			UnitAIIdleState state = new UnitAIIdleState();
-			unit.State = state;
-
-		}
+		Launch.battleplayer.Attack(battle.Frame, unit, unit.Target);
 	}
 
 	private bool _checkTargetAlive()

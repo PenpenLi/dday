@@ -119,9 +119,22 @@ public class Battleplayer
 		_commandQueue.Enqueue(command);
 	}
 
-	public void Attack(int frame, Unit attacker, Unit target, int damage, bool isDead)
+	public void Attack(int frame, Unit attacker, Unit target)
 	{
 		BattleCommandAttack command = new BattleCommandAttack();
+		command.battleplayer = this;
+
+		command.Caster = attacker.ID;
+		command.Target = target.ID;
+		command.Frame = frame;
+		command.Position = attacker.Position;
+
+		_commandQueue.Enqueue(command);
+	}
+
+	public void AttackEffect(int frame, Unit attacker, Unit target, int damage, bool isDead)
+	{
+		BattleCommandAttackEffect command = new BattleCommandAttackEffect();
 		command.battleplayer = this;
 
 		command.Caster = attacker.ID;
@@ -129,7 +142,6 @@ public class Battleplayer
 		command.Damage = damage;
 		command.IsDead = isDead;
 		command.Frame = frame;
-		command.Position = attacker.Position;
 
 		_commandQueue.Enqueue(command);
 	}

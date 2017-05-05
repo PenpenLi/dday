@@ -3,13 +3,6 @@ using System.Collections;
 
 public class ActorCallbackData 
 {
-	public int Damage 
-	{
-		get;
-
-		set;
-	}
-
 	public Actor Caster
 	{
 		get;
@@ -17,12 +10,6 @@ public class ActorCallbackData
 	}
 
 	public Actor Target
-	{
-		get;
-		set;
-	}
-
-	public bool IsDead
 	{
 		get;
 		set;

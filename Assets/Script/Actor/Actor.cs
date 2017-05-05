@@ -199,13 +199,11 @@ public class Actor
 		SetState(state);
 	}
 
-	public void Attack(Vector3 position, Actor target, int damage, bool isDead)
+	public void Attack(Vector3 position, Actor target)
 	{
 		ActorCallbackData attackCallback = new ActorCallbackData();
 		attackCallback.Caster = this;
 		attackCallback.Target = target;
-		attackCallback.Damage = damage;
-		attackCallback.IsDead = isDead;
 		attackCallback.Init();
 
 		ActorAIStateAttack state = new ActorAIStateAttack();

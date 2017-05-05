@@ -196,5 +196,35 @@ public class Unit
 		}
 	}
 
+	// 计算实际效果
+	public void CastAttack(Unit target)
+	{
+		int damage = 0;
+		if(target != null && target.IsAlive)
+		{
+			int old = target.HP;
 
+			int tmp = (target.HP - Attack);
+			target.HP = tmp > 0 ? tmp : 0;
+
+			damage = old - target.HP;
+		}
+
+		bool isDead = !target.IsAlive;
+
+		Debug.Log("Frame " + battle.Frame + "id " + ID + " damage " + damage + " isdead " + isDead);
+
+		Launch.battleplayer.AttackEffect(battle.Frame, this, target, damage, isDead);
+
+		// 如果目标死亡的AI
+		if(isDead)
+		{
+			// target dead state
+			UnitAIDeadState stateDead = new UnitAIDeadState();
+			target.State = stateDead;
+
+			UnitAIIdleState state = new UnitAIIdleState();
+			State = state;
+		}
+	}
 }
