@@ -12,7 +12,7 @@ public class Launch : MonoBehaviour {
 	void Awake()
 	{
 		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 300;
+		Application.targetFrameRate = 60;
 
 	}
 

@@ -212,8 +212,6 @@ public class Unit
 
 		bool isDead = !target.IsAlive;
 
-		Debug.Log("Frame " + battle.Frame + "id " + ID + " damage " + damage + " isdead " + isDead);
-
 		Launch.battleplayer.AttackEffect(battle.Frame, this, target, damage, isDead);
 
 		// 如果目标死亡的AI

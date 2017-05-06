@@ -9,7 +9,7 @@ public class UnitAIAttackState : UnitAIState
 	private int attackFrameCounter = 0;
 
 	//攻击前摇的帧数
-	private int forwardFrame = 3;
+	private int forwardFrame = 18;
 
 	List<UnitAttackEffect> _effectList = new List<UnitAttackEffect>();
 
@@ -70,11 +70,10 @@ public class UnitAIAttackState : UnitAIState
 		attackEffect.Caster = unit;
 		attackEffect.Target = unit.Target;
 		attackEffect.IsFly = true;
-		attackEffect.Speed = 20;
+		attackEffect.Speed = 50;
 
 		_effectList.Add(attackEffect);
 
-		Debug.Log("frame " + battle.Frame + " id " + unit.ID + " attack ");
 		// 表现层接口
 		Launch.battleplayer.Attack(battle.Frame, unit, unit.Target);
 	}

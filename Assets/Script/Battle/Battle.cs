@@ -113,7 +113,7 @@ public class Battle
 	private void _initTroopUnit()
 	{
 		// attacker 
-		for(int troop = 0; troop < 1; ++troop)
+		for(int troop = 0; troop < 5; ++troop)
 		{
 			int unitcount = 1;//Random.Rand(1, 10);
 
@@ -140,7 +140,7 @@ public class Battle
 		}
 
 		// defender
-		for(int troop = 0; troop < 1; ++troop)
+		for(int troop = 0; troop < 5; ++troop)
 		{
 			int unitcount = 1;//Random.Rand(1, 10);
 

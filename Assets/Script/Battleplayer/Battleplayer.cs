@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Battleplayer  
 {
-	Battle _battle = null;
+	public Battle _battle = null;
 	float _timeStamp = 0;
 	int _lastFrame = 0;
 

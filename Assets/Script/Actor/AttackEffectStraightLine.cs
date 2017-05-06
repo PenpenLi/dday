@@ -20,7 +20,7 @@ public class AttackEffectStraightLine : AttackEffectBase
 
 		_instanceFly = GameObject.Instantiate(prefab);
 
-		Speed = 20;
+		Speed = 50;
 
 //		Matrix4x4 worldToLocal = Matrix4x4.identity;
 
