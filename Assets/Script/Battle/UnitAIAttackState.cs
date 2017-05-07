@@ -8,8 +8,7 @@ public class UnitAIAttackState : UnitAIState
 
 	private int attackFrameCounter = 0;
 
-	//攻击前摇的帧数
-	private int forwardFrame = 18;
+	public int attID = 1;
 
 	List<UnitAttackEffect> _effectList = new List<UnitAttackEffect>();
 
@@ -18,6 +17,8 @@ public class UnitAIAttackState : UnitAIState
 		base.Init (b, u);
 
 		attackFrameCounter = unit.AttackSpeed;
+
+		//Debug.Log("Logic Attack at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
 
 		_doAttack();
 	}
@@ -66,11 +67,15 @@ public class UnitAIAttackState : UnitAIState
 	private void _doAttack()
 	{
 		UnitAttackEffect attackEffect = new UnitAttackEffect();
-		attackEffect.ForwardFrame = forwardFrame;
+
+		// 获得att配置信息
+		AttackEffectConfig.AttackEffectData data = AttackEffectConfig.AttackEffectConfigList[attID];
+
+		attackEffect.ForwardFrame = data.ForwardFrame;
 		attackEffect.Caster = unit;
 		attackEffect.Target = unit.Target;
-		attackEffect.IsFly = true;
-		attackEffect.Speed = 50;
+		attackEffect.IsFly = data.IsFly;
+		attackEffect.Speed = data.Speed;
 
 		_effectList.Add(attackEffect);
 

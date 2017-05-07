@@ -7,9 +7,20 @@ public class ActorAIStateAttack : ActorAIState
 
 	public ActorCallbackData callbackData = null;
 
+	public int attID = 1;
+
+	private float _callBackTime = 0;
+
+	private bool _triggered = false;
+
 	public override void Init (Actor parent)
 	{
+		//Debug.Log("Renderer Attack at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
+
 		base.Init (parent);
+
+		var data = AttackEffectConfig.AttackEffectConfigList[attID];
+		_callBackTime = data.ForwardFrame * Battleplayer.TIME_PER_FRAME;
 
 		actor.Position = Position;
 		actor.PlaySkill("attack", true);
@@ -29,16 +40,24 @@ public class ActorAIStateAttack : ActorAIState
 
 	public override void OnHitCallback(string attName)
 	{
+
+	}
+
+	private void _onHitCallBack()
+	{
 		if(callbackData != null && callbackData.Caster != null && callbackData.Target != null)
 		{
-			string[] attNames = attName.Split(';');
+			//Debug.Log("Renderer Forward at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
 
-			if(attNames.Length == 1)
+			var data = AttackEffectConfig.AttackEffectConfigList[attID];
+
+
+			if(!data.IsFly)
 			{
 				// 只有击中
 				AttackEffectHit hitEffect = new AttackEffectHit();
 
-				hitEffect.EffectPrefabName = attNames[0];
+				hitEffect.EffectPrefabName = data.HitEffectName;
 				hitEffect.Caster = callbackData.Caster;
 				hitEffect.Target = callbackData.Target;
 
@@ -46,15 +65,17 @@ public class ActorAIStateAttack : ActorAIState
 
 				callbackData.Target.attackEffectList.Add(hitEffect);
 			}
-			else if(attNames.Length == 2)
+			else
 			{
 				// 飞行击中
 				AttackEffectStraightLine attackEffect = new AttackEffectStraightLine();
-				attackEffect.HitEffectPrefabName = attNames[0];
-				attackEffect.FlyEffectPrefabName = attNames[1];
+				attackEffect.HitEffectPrefabName = data.HitEffectName;
+				attackEffect.FlyEffectPrefabName = data.FlyEffectName;
 
 				attackEffect.Caster = callbackData.Caster;
 				attackEffect.Target = callbackData.Target;
+
+				attackEffect.Speed = data.Speed;
 
 				attackEffect.Init();
 				callbackData.Target.attackEffectList.Add(attackEffect);
@@ -64,6 +85,20 @@ public class ActorAIStateAttack : ActorAIState
 
 	public override void Tick (float dt)
 	{
-		
+		if(_triggered)
+		{
+			return;
+		}
+
+		if(_callBackTime > 0)
+		{
+			_callBackTime -= dt;
+		}
+		else
+		{
+			_onHitCallBack();
+
+			_triggered = true;
+		}
 	}
 }

@@ -12,7 +12,7 @@ public class Launch : MonoBehaviour {
 	void Awake()
 	{
 		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 60;
+		Application.targetFrameRate = 100;
 
 	}
 
@@ -27,6 +27,8 @@ public class Launch : MonoBehaviour {
 		gridRenderer = new GridRenderer();
 
 		gridRenderer.Init(Battle.MAX_BATTLE_FILED_X, Battle.MAX_BATTLE_FILED_Y, 2, 0.1f, "grid/mat_grid", "Grid");
+
+		AttackEffectConfig.Init();
 
 		battleplayer = new Battleplayer();
 		battleplayer.Init();

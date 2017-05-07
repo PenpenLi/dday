@@ -17,6 +17,7 @@ public class UnitAttackEffect
 		if(ForwardFrame > 0)
 		{
 			--ForwardFrame;
+
 			return false;
 		}
 		else
@@ -25,6 +26,8 @@ public class UnitAttackEffect
 			{
 				if(_FlyFrame == -1)
 				{
+					//Debug.Log("Logic Forward at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
+
 					Vector2 distance = Caster.Position - Target.Position;
 
 					_FlyFrame = (int)(distance.magnitude / Speed / Battleplayer.TIME_PER_FRAME);

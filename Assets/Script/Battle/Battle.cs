@@ -67,6 +67,9 @@ public class Battle
 
 	public void Tick()
 	{
+		// 逻辑层要与表现层一致，所以frame 要一致，放前面
+		++Frame;
+
 		// 行动顺序的问题，现在是进攻方优先
 		// 这样同一帧，如果防守方本来要攻击，但是已经死亡了，这一帧就没法攻击了
 		List<Unit>.Enumerator enumerator = attakerList.GetEnumerator();
@@ -80,8 +83,6 @@ public class Battle
 		{
 			enumerator.Current.Tick();
 		}
-
-		++Frame;
 	}
 
 	public void Destroy()
@@ -129,8 +130,8 @@ public class Battle
 				unit.AttackRange = 10;
 				unit.IsAttacker = true;
 
-				unit.Attack = 20;//Random.Rand(3, 10);
-				unit.AttackSpeed = 60;
+				unit.Attack = 2;//Random.Rand(3, 10);
+				unit.AttackSpeed = 6;
 				unit.MoveSpeed = 2 / 30.0f;
 
 				unit.ID = _getUnitID(troop, unitIndex);
@@ -157,8 +158,8 @@ public class Battle
 				unit.AttackRange = 10;
 				unit.IsAttacker = false;
 
-				unit.Attack = 20;//Random.Rand(3, 10);
-				unit.AttackSpeed = 30;
+				unit.Attack = 2;//Random.Rand(3, 10);
+				unit.AttackSpeed = 3;
 				unit.MoveSpeed = 2 / 30.0f;
 
 				unit.ID = _getUnitID(troop + 5, unitIndex);

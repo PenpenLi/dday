@@ -212,6 +212,7 @@ public class Unit
 
 		bool isDead = !target.IsAlive;
 
+		//Debug.Log("Logic Attack Effect  at frame: " + battle.Frame + " time : " + System.Environment.TickCount );
 		Launch.battleplayer.AttackEffect(battle.Frame, this, target, damage, isDead);
 
 		// 如果目标死亡的AI

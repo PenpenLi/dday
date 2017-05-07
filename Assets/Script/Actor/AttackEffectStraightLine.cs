@@ -20,8 +20,6 @@ public class AttackEffectStraightLine : AttackEffectBase
 
 		_instanceFly = GameObject.Instantiate(prefab);
 
-		Speed = 50;
-
 //		Matrix4x4 worldToLocal = Matrix4x4.identity;
 
 //		if(Target != null)
@@ -70,6 +68,8 @@ public class AttackEffectStraightLine : AttackEffectBase
 		}
 		else
 		{
+			//Debug.Log("Renderer Attack Effect  at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
+
 			GameObject.Destroy(_instanceFly);
 			_instanceFly = null;
 
