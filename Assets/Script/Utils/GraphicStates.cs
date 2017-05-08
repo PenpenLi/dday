@@ -21,7 +21,7 @@ public class GraphicStates : MonoBehaviour {
 		currentFPS = nFrameCounter / timeElapsed;
 
 		// 
-		if(timeElapsed > 10)
+		if(timeElapsed > 1)
 		{
 			timeElapsed = 0;
 			nFrameCounter = 0;
