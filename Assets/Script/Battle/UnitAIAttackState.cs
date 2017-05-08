@@ -16,11 +16,9 @@ public class UnitAIAttackState : UnitAIState
 	{
 		base.Init (b, u);
 
-		attackFrameCounter = unit.AttackSpeed;
+		attackFrameCounter = 0;
 
 		//Debug.Log("Logic Attack at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
-
-		_doAttack();
 	}
 
 	public override void Destroy ()

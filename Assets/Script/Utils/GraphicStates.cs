@@ -19,6 +19,13 @@ public class GraphicStates : MonoBehaviour {
 		++nFrameCounter;
 		timeElapsed += Time.deltaTime;
 		currentFPS = nFrameCounter / timeElapsed;
+
+		// 
+		if(timeElapsed > 10)
+		{
+			timeElapsed = 0;
+			nFrameCounter = 0;
+		}
 	}
 
 	void OnGUI() 
