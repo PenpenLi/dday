@@ -19,7 +19,7 @@ public class ActorAIStateAttack : ActorAIState
 
 		base.Init (parent);
 
-		var data = AttackEffectConfig.AttackEffectConfigList[attID];
+		var data = SkillAttackFlyAttributeConfig.AttackEffectConfigList[attID];
 		_callBackTime = data.ForwardFrame * Battleplayer.TIME_PER_FRAME;
 
 		actor.Position = Position;
@@ -49,7 +49,7 @@ public class ActorAIStateAttack : ActorAIState
 		{
 			//Debug.Log("Renderer Forward at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
 
-			var data = AttackEffectConfig.AttackEffectConfigList[attID];
+			var data = SkillAttackFlyAttributeConfig.AttackEffectConfigList[attID];
 
 
 			if(!data.IsFly)

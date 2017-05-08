@@ -10,7 +10,7 @@ public class UnitAIAttackState : UnitAIState
 
 	public int attID = 1;
 
-	List<UnitAttackEffect> _effectList = new List<UnitAttackEffect>();
+	List<UnitSkillAttackBase> _skillAttackList = new List<UnitSkillAttackBase>();
 
 	public override void Init (Battle b, Unit u)
 	{
@@ -30,14 +30,14 @@ public class UnitAIAttackState : UnitAIState
 
 	public override void Tick ()
 	{
-		for(int i = _effectList.Count-1;i >= 0 ; i--)
+		for(int i = _skillAttackList.Count-1;i >= 0 ; i--)
 		{
-			UnitAttackEffect attackEffect = _effectList[i];
+			UnitSkillAttackBase attackEffect = _skillAttackList[i];
 
 			if(attackEffect.Tick())
 			{
 				// delete
-				_effectList.RemoveAt(i);
+				_skillAttackList.RemoveAt(i);
 			}
 		}
 
@@ -66,21 +66,41 @@ public class UnitAIAttackState : UnitAIState
 
 	private void _doAttack()
 	{
-		UnitAttackEffect attackEffect = new UnitAttackEffect();
+		UnitSkillAttackBase attackEffect = null;
 
 		// 获得att配置信息
-		AttackEffectConfig.AttackEffectData data = AttackEffectConfig.AttackEffectConfigList[attID];
+		SkillAttackFlyAttributeConfig.SkillAttackFlyAttribute data = SkillAttackFlyAttributeConfig.AttackEffectConfigList[attID];
 
-		attackEffect.ForwardFrame = data.ForwardFrame;
-		attackEffect.Caster = unit;
-		attackEffect.Target = unit.Target;
-		attackEffect.IsFly = data.IsFly;
-		attackEffect.Speed = data.Speed;
 
-		_effectList.Add(attackEffect);
+		switch(data.FlyType)
+		{
+			case 0:
+			{
+				// no fly
+			}
+			break;
+			case 1:
+			{
+				// straight line
+				attackEffect = new UnitSkillAttackStraightLine();
 
-		// 表现层接口
-		Launch.battleplayer.Attack(battle.Frame, unit, unit.Target);
+				attackEffect.ForwardFrame = data.ForwardFrame;
+				attackEffect.Caster = unit;
+				attackEffect.Target = unit.Target;
+				attackEffect.IsFly = data.IsFly;
+				attackEffect.Speed = data.Speed;
+			}
+			break;
+			default:
+			break;
+		}
+
+		if(attackEffect != null)
+		{
+			_skillAttackList.Add(attackEffect);	
+			// 表现层接口
+			Launch.battleplayer.Attack(battle.Frame, unit, unit.Target);
+		}
 	}
 
 	private bool _checkTargetAlive()
