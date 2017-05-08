@@ -77,6 +77,13 @@ public class UnitAIAttackState : UnitAIState
 			case 0:
 			{
 				// no fly
+				attackEffect = new UnitSkillAttackBase();
+
+				attackEffect.ForwardFrame = data.ForwardFrame;
+				attackEffect.Caster = unit;
+				attackEffect.Target = unit.Target;
+				attackEffect.IsFly = data.IsFly;
+				attackEffect.Speed = data.Speed;
 			}
 			break;
 			case 1:
@@ -92,6 +99,9 @@ public class UnitAIAttackState : UnitAIState
 			}
 			break;
 			default:
+			{
+				Debug.LogError(" 攻击没有飞行类型: " + attID);
+			}
 			break;
 		}
 

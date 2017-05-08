@@ -30,6 +30,18 @@ public class SkillAttackFlyAttributeConfig
 	{
 		SkillAttackFlyAttribute data = new SkillAttackFlyAttribute();
 		data.ID = 1;
+		data.IsFly = false;
+		data.Speed = 0;
+		data.ForwardFrame = 14;
+		data.HitEffectName = "beiji_ren_ani";
+		data.FlyEffectName = "";
+		data.FlyType = 0;
+
+		AttackEffectConfigList.Add(data.ID, data);
+
+
+		data = new SkillAttackFlyAttribute();
+		data.ID = 2;
 		data.IsFly = true;
 		data.Speed = 50;
 		data.ForwardFrame = 1;
@@ -38,6 +50,7 @@ public class SkillAttackFlyAttributeConfig
 		data.FlyType = 1;
 
 		AttackEffectConfigList.Add(data.ID, data);
+
 
 	}
 }

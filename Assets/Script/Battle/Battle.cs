@@ -127,11 +127,11 @@ public class Battle
 
 				unit.HP = 100;
 
-				unit.AttackRange = 10;
+				unit.AttackRange = 1;
 				unit.IsAttacker = true;
 
-				unit.Attack = 2;//Random.Rand(3, 10);
-				unit.AttackSpeed = 6;
+				unit.Attack = 20;//Random.Rand(3, 10);
+				unit.AttackSpeed = 60;
 				unit.MoveSpeed = 2 / 30.0f;
 
 				unit.ID = _getUnitID(troop, unitIndex);
@@ -155,11 +155,11 @@ public class Battle
 
 				unit.HP = 100;
 
-				unit.AttackRange = 10;
+				unit.AttackRange = 1;
 				unit.IsAttacker = false;
 
-				unit.Attack = 2;//Random.Rand(3, 10);
-				unit.AttackSpeed = 3;
+				unit.Attack = 20;//Random.Rand(3, 10);
+				unit.AttackSpeed = 30;
 				unit.MoveSpeed = 2 / 30.0f;
 
 				unit.ID = _getUnitID(troop + 5, unitIndex);
