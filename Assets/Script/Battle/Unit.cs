@@ -143,6 +143,22 @@ public class Unit
 		}
 	}
 
+	int attack_skill_attack_id_;
+	public int AttackSkillAttackID
+	{
+		get
+		{
+			return attack_skill_attack_id_;
+		}
+		set
+		{
+			if(attack_skill_attack_id_ != value)
+			{
+				attack_skill_attack_id_ = value;
+			}
+		}
+	}
+
 	public bool IsAlive
 	{
 		get

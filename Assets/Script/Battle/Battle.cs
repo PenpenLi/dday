@@ -113,28 +113,32 @@ public class Battle
 	// 
 	private void _initTroopUnit()
 	{
+		int[] attackerUnitTypeID = new int[5]{1, 1, 1, 2, 2};
+		int[] defenderUnitTypeID = new int[5]{1, 1, 1, 2, 2};
+
 		// attacker 
 		for(int troop = 0; troop < 5; ++troop)
 		{
 			int unitcount = 1;//Random.Rand(1, 10);
 
+			int unitAttributeID = attackerUnitTypeID[troop];
+			UnitConfig.UnitAttribute unitConfigData = UnitConfig.GetUnitAttribute(unitAttributeID);
+
 			for(int unitIndex = 0; unitIndex < unitcount; ++unitIndex)
 			{
 				Unit unit = new Unit(this);
+				unit.ID = _getUnitID(troop, unitIndex);
+				unit.IsAttacker = true;
 
 				int offset = 0; //Random.Rand(-2, 2);
 				unit.Position = ATTACKER_INIT_POSITION[troop] + new Vector2(offset, offset);
 
-				unit.HP = 100;
-
-				unit.AttackRange = 1;
-				unit.IsAttacker = true;
-
-				unit.Attack = 20;//Random.Rand(3, 10);
-				unit.AttackSpeed = 60;
-				unit.MoveSpeed = 2 / 30.0f;
-
-				unit.ID = _getUnitID(troop, unitIndex);
+				unit.HP = unitConfigData.HP;
+				unit.AttackRange = unitConfigData.AttackRange;
+				unit.Attack = unitConfigData.Attack;
+				unit.AttackSpeed = unitConfigData.AttackSpeed;
+				unit.MoveSpeed = unitConfigData.MoveSpeed / Battleplayer.FRAME_RATE;
+				unit.AttackSkillAttackID = unitConfigData.AttackSkillAttackID;
 
 				attakerList.Add(unit);
 			}
@@ -145,24 +149,24 @@ public class Battle
 		{
 			int unitcount = 1;//Random.Rand(1, 10);
 
+			int unitAttributeID = defenderUnitTypeID[troop];
+			UnitConfig.UnitAttribute unitConfigData = UnitConfig.GetUnitAttribute(unitAttributeID);
+
+
 			for(int unitIndex = 0; unitIndex < unitcount; ++unitIndex)
 			{
 				Unit unit = new Unit(this);
-
+				unit.ID = _getUnitID(troop + 5, unitIndex);
+				unit.IsAttacker = false;
 				int offset = 0;//Random.Rand(-2, 2);
-
 				unit.Position = DEFENDER_INIT_POSITION[troop] + new Vector2(offset, offset);
 
-				unit.HP = 100;
-
-				unit.AttackRange = 1;
-				unit.IsAttacker = false;
-
-				unit.Attack = 20;//Random.Rand(3, 10);
-				unit.AttackSpeed = 30;
-				unit.MoveSpeed = 2 / 30.0f;
-
-				unit.ID = _getUnitID(troop + 5, unitIndex);
+				unit.HP = unitConfigData.HP;
+				unit.AttackRange = unitConfigData.AttackRange;
+				unit.Attack = unitConfigData.Attack;
+				unit.AttackSpeed = unitConfigData.AttackSpeed;
+				unit.MoveSpeed = unitConfigData.MoveSpeed / Battleplayer.FRAME_RATE;
+				unit.AttackSkillAttackID = unitConfigData.AttackSkillAttackID;
 
 				defenderList.Add(unit);
 			}

@@ -24,9 +24,9 @@ public class SkillAttackFlyAttributeConfig
 		public string FlyEffectName { set; get; }
 	}
 
-	public static Dictionary<int , SkillAttackFlyAttribute> AttackEffectConfigList = new Dictionary<int, SkillAttackFlyAttribute>();
+	private static Dictionary<int , SkillAttackFlyAttribute> attack_effect_config_list_ = new Dictionary<int, SkillAttackFlyAttribute>();
 
-	public static void Init()
+	public static void Initialize()
 	{
 		SkillAttackFlyAttribute data = new SkillAttackFlyAttribute();
 		data.ID = 1;
@@ -37,7 +37,7 @@ public class SkillAttackFlyAttributeConfig
 		data.FlyEffectName = "";
 		data.FlyType = 0;
 
-		AttackEffectConfigList.Add(data.ID, data);
+		attack_effect_config_list_.Add(data.ID, data);
 
 
 		data = new SkillAttackFlyAttribute();
@@ -49,8 +49,13 @@ public class SkillAttackFlyAttributeConfig
 		data.FlyEffectName = "arrow";
 		data.FlyType = 1;
 
-		AttackEffectConfigList.Add(data.ID, data);
+		attack_effect_config_list_.Add(data.ID, data);
 
 
+	}
+
+	public static SkillAttackFlyAttribute GetSkillAttackFlyAttribute(int id)
+	{
+		return attack_effect_config_list_[id];
 	}
 }

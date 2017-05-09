@@ -28,7 +28,8 @@ public class Launch : MonoBehaviour {
 
 		gridRenderer.Init(Battle.MAX_BATTLE_FILED_X, Battle.MAX_BATTLE_FILED_Y, 2, 0.1f, "grid/mat_grid", "Grid");
 
-		SkillAttackFlyAttributeConfig.Init();
+		SkillAttackFlyAttributeConfig.Initialize();
+		UnitConfig.Initialize();
 
 		battleplayer = new Battleplayer();
 		battleplayer.Init();

@@ -8,8 +8,6 @@ public class UnitAIAttackState : UnitAIState
 
 	private int attackFrameCounter = 0;
 
-	public int attID = 1;
-
 	List<UnitSkillAttackBase> _skillAttackList = new List<UnitSkillAttackBase>();
 
 	public override void Init (Battle b, Unit u)
@@ -67,7 +65,7 @@ public class UnitAIAttackState : UnitAIState
 		UnitSkillAttackBase attackEffect = null;
 
 		// 获得att配置信息
-		SkillAttackFlyAttributeConfig.SkillAttackFlyAttribute data = SkillAttackFlyAttributeConfig.AttackEffectConfigList[attID];
+		SkillAttackFlyAttributeConfig.SkillAttackFlyAttribute data = SkillAttackFlyAttributeConfig.GetSkillAttackFlyAttribute(unit.AttackSkillAttackID);
 
 
 		switch(data.FlyType)
@@ -98,7 +96,7 @@ public class UnitAIAttackState : UnitAIState
 			break;
 			default:
 			{
-				Debug.LogError(" 攻击没有飞行类型: " + attID);
+				Debug.LogError(" 攻击没有飞行类型: " + unit.AttackSkillAttackID);
 			}
 			break;
 		}

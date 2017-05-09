@@ -165,6 +165,23 @@ public class Actor
 		}
 	}
 
+	// unit attribute id
+	int attack_skill_attack_id_;
+	public int AttackSkillAttackId
+	{
+		get
+		{
+			return attack_skill_attack_id_;
+		}
+		set
+		{
+			if(value != attack_skill_attack_id_)
+			{
+				attack_skill_attack_id_ = value;
+			}
+		}
+	}
+
 	public void RandomMove()
 	{
 		ActorAIStateMove2Position state = new ActorAIStateMove2Position();

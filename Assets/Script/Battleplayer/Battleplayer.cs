@@ -27,14 +27,14 @@ public class Battleplayer
 		List<Unit>.Enumerator enumerator = _battle.attakerList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{
-			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position, enumerator.Current.ID);
+			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current);
 			unitActorMap.Add(enumerator.Current.ID, actor);
 		}
 
 		enumerator = _battle.defenderList.GetEnumerator();
 		while(enumerator.MoveNext())
 		{
-			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current.Position, enumerator.Current.ID);
+			Actor actor = ActorMananger.Instance().CreateActor(enumerator.Current);
 			unitActorMap.Add(enumerator.Current.ID, actor);
 		}
 

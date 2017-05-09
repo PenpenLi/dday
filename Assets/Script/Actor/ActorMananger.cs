@@ -45,13 +45,14 @@ public class ActorMananger
 		}
 	}
 
-	public Actor CreateActor(Vector2 position, int id)
+	public Actor CreateActor(Unit unit)
 	{
 		Actor actor = new Actor();
-		actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite, id);
+		actor.AttackSkillAttackId = unit.AttackSkillAttackID;
+		actor.Init("Actor/Sprite/Prefab/swordman_r_h", Actor.ActorType.Sprite, unit.ID);
 		actorList.Add(actor);
 
-		actor.Position = new Vector3(position.x, ActorMananger.ACTOR_Y, position.y);
+		actor.Position = new Vector3(unit.Position.x, ActorMananger.ACTOR_Y, unit.Position.y);
 
 		return actor;
 	}

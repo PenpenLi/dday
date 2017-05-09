@@ -7,8 +7,6 @@ public class ActorAIStateAttack : ActorAIState
 
 	public ActorCallbackData callbackData = null;
 
-	public int attID = 1;
-
 	private float _callBackTime = 0;
 
 	private bool _triggered = false;
@@ -19,7 +17,7 @@ public class ActorAIStateAttack : ActorAIState
 
 		base.Init (parent);
 
-		var data = SkillAttackFlyAttributeConfig.AttackEffectConfigList[attID];
+		var data = SkillAttackFlyAttributeConfig.GetSkillAttackFlyAttribute(actor.AttackSkillAttackId);
 		_callBackTime = data.ForwardFrame * Battleplayer.TIME_PER_FRAME;
 
 		actor.Position = Position;
@@ -29,11 +27,7 @@ public class ActorAIStateAttack : ActorAIState
 	public override void Destroy ()
 	{
 		// 有的时候状态被打断，不会触发回调，这里强制处理一下
-		if(callbackData != null)
-		{
-			callbackData.Destroy();
-			callbackData = null;
-		}
+		_onHitCallBack();
 
 		base.Destroy ();
 	}
@@ -45,11 +39,12 @@ public class ActorAIStateAttack : ActorAIState
 
 	private void _onHitCallBack()
 	{
+		// callback data 保证只触发一次, 要么是在回调的时候，要么是在被打断的时候在destory
 		if(callbackData != null && callbackData.Caster != null && callbackData.Target != null)
 		{
 			//Debug.Log("Renderer Forward at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
 
-			var data = SkillAttackFlyAttributeConfig.AttackEffectConfigList[attID];
+			var data = SkillAttackFlyAttributeConfig.GetSkillAttackFlyAttribute(callbackData.Caster.AttackSkillAttackId);
 
 
 			if(!data.IsFly)
@@ -80,6 +75,9 @@ public class ActorAIStateAttack : ActorAIState
 				attackEffect.Init();
 				callbackData.Target.attackEffectList.Add(attackEffect);
 			}
+
+			callbackData.Destroy();
+			callbackData = null;
 		}
 	}
 
