@@ -44,7 +44,16 @@ public class AttackEffectStraightLine : AttackEffectBase
 		float cosTheta = Vector3.Dot(Vector3.up, distance.normalized);
 		float theta = Mathf.Acos(cosTheta);
 
-		_instanceFly.transform.rotation = Quaternion.Euler(0, (Caster.Rotation - Mathf.PI / 2) * Mathf.Rad2Deg, -theta * Mathf.Rad2Deg);
+		float cos_theta2 = Vector3.Dot(Vector3.up, Camera.main.transform.forward);
+		float theta2 = Mathf.Acos(cos_theta2);
+
+		if(Caster.Rotation > 0)
+		{
+			theta2 = -theta2;
+		}
+
+		//_instanceFly.transform.rotation = Quaternion.Euler(0, (Caster.Rotation - Mathf.PI / 2) * Mathf.Rad2Deg, -theta * Mathf.Rad2Deg);
+		_instanceFly.transform.rotation = Quaternion.Euler(theta2 * Mathf.Rad2Deg, (Caster.Rotation - Mathf.PI / 2) * Mathf.Rad2Deg, -theta * Mathf.Rad2Deg);
 
 	}
 
