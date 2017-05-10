@@ -20,18 +20,7 @@ public class ActorAIStateMove2Position : ActorAIState
 		dir = (endPos - startPos).normalized;
 		totalTime = (endPos - startPos).magnitude / moveSpeed;
 
-		Vector3 tmp = endPos - startPos;
-		tmp.y = 0;
-		tmp.Normalize();
-		float cosTheta = Vector3.Dot(tmp, Vector3.forward);
-		float theta = Mathf.Acos(cosTheta);
-
-		if(tmp.x <= 0)
-		{
-			theta = -theta;	
-		}
-
-		actor.Rotation = theta;
+		actor.ChangeDirection(dir);
 
 		actor.PlaySkill("running");
 	}

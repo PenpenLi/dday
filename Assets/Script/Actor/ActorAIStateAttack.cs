@@ -21,6 +21,9 @@ public class ActorAIStateAttack : ActorAIState
 		_callBackTime = data.ForwardFrame * Battleplayer.TIME_PER_FRAME;
 
 		actor.Position = Position;
+
+		actor.ChangeDirection(callbackData.Target.Position - callbackData.Caster.Position);
+
 		actor.PlaySkill("attack", true);
 	}
 

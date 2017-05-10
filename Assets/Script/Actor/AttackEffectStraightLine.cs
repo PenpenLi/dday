@@ -12,6 +12,8 @@ public class AttackEffectStraightLine : AttackEffectBase
 	public float Speed { set; get; }
 
 
+	private ParticleSystem particle_system_ = null;
+
 	private Vector3 start_position = Vector3.zero;
 	private float current_fly_time = 0;
 	private float total_fly_time = 0;
@@ -27,12 +29,18 @@ public class AttackEffectStraightLine : AttackEffectBase
 		_instanceFly.transform.position = Caster.Position;
 		start_position = Caster.Position;
 
-		//Debug.Log(start_position);
-
-		Vector3 distance = Caster.Position - Target.Position;
+		Vector3 distance = Target.Position - Caster.Position;
 
 		total_fly_time = distance.magnitude / Speed;
 		current_fly_time = 0;
+
+		particle_system_ = _instanceFly.GetComponent<ParticleSystem>();
+
+		float cosTheta = Vector3.Dot(Vector3.up, distance.normalized);
+		float theta = Mathf.Acos(cosTheta);
+
+		particle_system_.startRotation3D = new Vector3(0, Caster.Rotation * Mathf.Deg2Rad, theta);
+
 	}
 
 	public override void Destroy ()

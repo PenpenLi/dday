@@ -119,7 +119,7 @@ public class Actor
 			renderer.PlaySkill(skillName, playOnce);
 		}
 	}
-
+		
 	Vector3 position;
 	public Vector3 Position
 	{ 
@@ -140,6 +140,23 @@ public class Actor
 			}
 		}
 
+	}
+
+	public void ChangeDirection(Vector3 direction)
+	{
+		Vector3 tmp = direction;
+		tmp.y = 0;
+		tmp.Normalize();
+
+		float cosTheta = Vector3.Dot(tmp, Vector3.forward);
+		float theta = Mathf.Acos(cosTheta);
+
+		if(tmp.x <= 0)
+		{
+			theta = -theta;	
+		}
+
+		Rotation = theta;
 	}
 
 	// 绕y轴顺时针的转角

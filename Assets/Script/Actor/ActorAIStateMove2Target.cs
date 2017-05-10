@@ -35,18 +35,7 @@ public class ActorAIStateMove2Target : ActorAIState
 	{
 		_dir = (target.Position - actor.Position).normalized;
 
-		Vector3 tmp = _dir;
-		tmp.y = 0;
-		tmp.Normalize();
-		float cosTheta = Vector3.Dot(tmp, Vector3.forward);
-		float theta = Mathf.Acos(cosTheta);
-
-		if(tmp.x <= 0)
-		{
-			theta = -theta;	
-		}
-
-		actor.Rotation = theta;
+		actor.ChangeDirection(_dir);
 
 		actor.PlaySkill("running");
 	}
