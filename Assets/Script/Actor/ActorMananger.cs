@@ -56,7 +56,7 @@ public class ActorMananger
 
 	public void RecycleGameObjectInstance(string name, GameObject gameobject)
 	{
-		gameobject.transform.position = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+		gameobject.transform.position = new Vector3(5000.0f, 5000.0f, 5000.0f);
 
 		gameobject_pool[name].Enqueue(gameobject);
 	}

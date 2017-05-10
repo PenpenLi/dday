@@ -114,7 +114,7 @@ public class Battle
 	private void _initTroopUnit()
 	{
 		int[] attackerUnitTypeID = new int[5]{1, 1, 1, 2, 2};
-		int[] defenderUnitTypeID = new int[5]{1, 1, 1, 1, 1};
+		int[] defenderUnitTypeID = new int[5]{1, 1, 2, 2, 2};
 
 		// attacker 
 		for(int troop = 0; troop < 5; ++troop)

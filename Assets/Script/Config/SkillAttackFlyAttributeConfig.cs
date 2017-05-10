@@ -43,10 +43,10 @@ public class SkillAttackFlyAttributeConfig
 		data = new SkillAttackFlyAttribute();
 		data.ID = 2;
 		data.IsFly = true;
-		data.Speed = 20;
+		data.Speed = 50;
 		data.ForwardFrame = 1;
 		data.HitEffectName = "beiji_ren_ani";
-		data.FlyEffectName = "bullet";
+		data.FlyEffectName = "arrow";
 		data.FlyType = 1;
 
 		attack_effect_config_list_.Add(data.ID, data);
