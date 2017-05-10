@@ -11,40 +11,28 @@ public class AttackEffectStraightLine : AttackEffectBase
 
 	public float Speed { set; get; }
 
-	private float _flyTime = 0;
-	private Vector3 _dir = Vector3.zero;
+
+	private Vector3 start_position = Vector3.zero;
+	private float current_fly_time = 0;
+	private float total_fly_time = 0;
 
 	public override void Init ()
 	{
-		GameObject prefab = ActorMananger.Instance().GetPrefab("Effect/" + FlyEffectPrefabName);
+		//GameObject prefab = ActorMananger.Instance().GetPrefab("Effect/" + FlyEffectPrefabName);
 
-		_instanceFly = GameObject.Instantiate(prefab);
+		//_instanceFly = GameObject.Instantiate(prefab);
 
-//		Matrix4x4 worldToLocal = Matrix4x4.identity;
-
-//		if(Target != null)
-//		{
-//			Target.AddChild(_instanceFly);
-//		
-//			GameObject targetObj = Target.GetGameObject();
-//
-//			worldToLocal = targetObj.transform.worldToLocalMatrix;
-//		}
-
-//		Vector3 localCasterPosition = worldToLocal.MultiplyPoint3x4(Caster.Position);
-
-//		_instanceFly.transform.localPosition = localCasterPosition;
-//
-//		_dir = -localCasterPosition.normalized;
-//
-//		_flyTime = localCasterPosition.magnitude / Speed;
-
+		_instanceFly = ActorMananger.Instance().GetGameObjectInstance("Effect/" + FlyEffectPrefabName);
 
 		_instanceFly.transform.position = Caster.Position;
+		start_position = Caster.Position;
+
+		//Debug.Log(start_position);
 
 		Vector3 distance = Caster.Position - Target.Position;
-		_dir = -distance.normalized;
-		_flyTime = distance.magnitude / Speed;
+
+		total_fly_time = distance.magnitude / Speed;
+		current_fly_time = 0;
 	}
 
 	public override void Destroy ()
@@ -58,11 +46,13 @@ public class AttackEffectStraightLine : AttackEffectBase
 
 	public override bool Tick (float dt)
 	{
-		if(_flyTime > 0)
+		if(current_fly_time < total_fly_time)
 		{
-			_flyTime -= dt;
+			_instanceFly.transform.position = start_position + (Target.Position - start_position) * current_fly_time / total_fly_time;
 
-			_instanceFly.transform.position += _dir * dt * Speed;
+			//Debug.Log("current postion in tick " + _instanceFly.transform.position);
+
+			current_fly_time += dt;
 
 			return false;
 		}
@@ -70,7 +60,12 @@ public class AttackEffectStraightLine : AttackEffectBase
 		{
 			//Debug.Log("Renderer Attack Effect  at frame: " + Launch.battleplayer._battle.Frame + " time : " + System.Environment.TickCount );
 
-			GameObject.Destroy(_instanceFly);
+			_instanceFly.transform.position = Target.Position;
+
+			//GameObject.Destroy(_instanceFly);
+
+			ActorMananger.Instance().RecycleGameObjectInstance("Effect/" + FlyEffectPrefabName, _instanceFly);
+
 			_instanceFly = null;
 
 			// 只有击中

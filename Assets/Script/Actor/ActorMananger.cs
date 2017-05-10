@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ActorMananger  
 {
-	public static int ACTOR_Y = 1;
+	public static float ACTOR_Y = 0.5f;
 
 	static ActorMananger instance = null;
 
@@ -13,6 +13,8 @@ public class ActorMananger
 	Dictionary<string, GameObject> prefabList = new Dictionary<string, GameObject>();
 
 	Dictionary<GameObject, Actor> monoBehaviourMap = new Dictionary<GameObject, Actor>();
+
+	Dictionary<string, Queue<GameObject>> gameobject_pool = new Dictionary<string, Queue<GameObject>>();
 
 	public GameObject GetPrefab(string name)
 	{
@@ -23,6 +25,40 @@ public class ActorMananger
 		}
 
 		return prefabList[name];
+	}
+
+	public GameObject GetGameObjectInstance(string name)
+	{
+		if(gameobject_pool.ContainsKey(name))
+		{
+			if(gameobject_pool[name].Count > 0)
+			{
+				GameObject instance = gameobject_pool[name].Dequeue();
+				//instance.SetActive(true);
+				return instance;
+			}
+			else
+			{
+				GameObject prefab = GetPrefab(name);
+
+				return GameObject.Instantiate(prefab);
+			}
+		}
+		else
+		{
+			gameobject_pool.Add(name, new Queue<GameObject>());
+
+			GameObject prefab = GetPrefab(name);
+
+			return GameObject.Instantiate(prefab);
+		}
+	}
+
+	public void RecycleGameObjectInstance(string name, GameObject gameobject)
+	{
+		gameobject.transform.position = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+
+		gameobject_pool[name].Enqueue(gameobject);
 	}
 
 	public static ActorMananger Instance()

@@ -39,22 +39,22 @@ public class Battle
 
 	Vector2[] ATTACKER_INIT_POSITION = new Vector2[5]
 	{
-			new Vector2(0, 45),
-			new Vector2(0, 47),
-			new Vector2(0, 43),
+			new Vector2(10, 45),
+			new Vector2(10, 47),
+			new Vector2(10, 43),
 
-		new Vector2(-1, 46),
-		new Vector2(-1, 44),
+		new Vector2(9, 46),
+		new Vector2(9, 44),
 	};
 
 	Vector2[] DEFENDER_INIT_POSITION = new Vector2[5]
 	{
-		new Vector2(40, 45),
-		new Vector2(40, 47),
-		new Vector2(40, 43),
+		new Vector2(30, 45),
+		new Vector2(30, 47),
+		new Vector2(30, 43),
 
-			new Vector2(41, 46),
-			new Vector2(41, 44),
+			new Vector2(31, 46),
+			new Vector2(31, 44),
 	};
 
 	public void Init()
@@ -114,7 +114,7 @@ public class Battle
 	private void _initTroopUnit()
 	{
 		int[] attackerUnitTypeID = new int[5]{1, 1, 1, 2, 2};
-		int[] defenderUnitTypeID = new int[5]{1, 1, 1, 2, 2};
+		int[] defenderUnitTypeID = new int[5]{1, 1, 1, 1, 1};
 
 		// attacker 
 		for(int troop = 0; troop < 5; ++troop)
